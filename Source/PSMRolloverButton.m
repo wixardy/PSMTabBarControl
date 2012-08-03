@@ -29,14 +29,10 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
 	[self removeTrackingRect];
-
-	[super dealloc];
 }
 
 // the regular image
 - (void)setUsualImage:(NSImage *)newImage {
-	[newImage retain];
-	[_usualImage release];
 	_usualImage = newImage;
 
 	[self setImage:_usualImage];
@@ -47,8 +43,6 @@
 }
 
 - (void)setRolloverImage:(NSImage *)newImage {
-	[newImage retain];
-	[_rolloverImage release];
 	_rolloverImage = newImage;
 }
 
@@ -156,8 +150,8 @@
 	self = [super initWithCoder:aDecoder];
 	if(self) {
 		if([aDecoder allowsKeyedCoding]) {
-			_rolloverImage = [[aDecoder decodeObjectForKey:@"rolloverImage"] retain];
-			_usualImage = [[aDecoder decodeObjectForKey:@"usualImage"] retain];
+			_rolloverImage = [aDecoder decodeObjectForKey:@"rolloverImage"];
+			_usualImage = [aDecoder decodeObjectForKey:@"usualImage"];
 			_myTrackingRectTag = [aDecoder decodeInt64ForKey:@"myTrackingRectTag"];
 		}
 	}
